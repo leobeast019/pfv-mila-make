@@ -1,0 +1,59 @@
+{
+  "name": "sistema-vendas-desktop",
+  "version": "1.0.0",
+  "description": "Sistema de vendas e caixa para Windows",
+  "productName": "Sistema de Vendas",
+  "main": "desktop/main.js",
+  "author": "Sistema de Vendas",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test",
+    "create-icon": "node scripts/create-icon.js",
+    "build:win": "npm run create-icon && electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "45.2.3",
+    "electron-builder": "26.18.0"
+  },
+  "overrides": {
+    "minimatch": "11.0.5"
+  },
+  "build": {
+    "appId": "br.com.sistemavendas.desktop",
+    "productName": "Sistema de Vendas",
+    "asar": true,
+    "files": [
+      "sistema-vendas.html",
+      "desktop/**/*",
+      "renderer/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "SistemaVendas-Setup-${version}-${arch}.${ext}",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Sistema de Vendas",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}
